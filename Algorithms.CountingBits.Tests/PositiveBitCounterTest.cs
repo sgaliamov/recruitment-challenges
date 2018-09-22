@@ -14,7 +14,7 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits.Tests
     [TestClass]
     public class PositiveBitCounterTest
     {
-        private readonly PositiveBitCounter _bitCounter = new PositiveBitCounter();
+        private readonly IPositiveBitCounter _bitCounter = new BitwisePositiveBitCounter();
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
@@ -47,6 +47,24 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits.Tests
             CollectionAssert.AreEqual(
                 new List<int> { 3, 0, 5, 7 },
                 _bitCounter.Count(161).ToList(),
+                "The result is not the expected");
+        }
+
+        [TestMethod]
+        public void Count_ValidInput_MaxInt()
+        {
+            const int maxCapacity = sizeof(int) * 8;
+            var expected = new List<int>(maxCapacity) { maxCapacity - 1 };
+            for (var i = 0; i < expected[0]; i++)
+            {
+                expected.Add(i);
+            }
+
+            var actual = _bitCounter.Count(int.MaxValue).ToArray();
+
+            CollectionAssert.AreEqual(
+                expected,
+                actual,
                 "The result is not the expected");
         }
     }

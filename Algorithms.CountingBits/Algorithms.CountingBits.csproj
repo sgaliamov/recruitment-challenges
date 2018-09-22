@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPositiveBitCounter.cs" />
+    <Compile Include="BitwisePositiveBitCounter.cs" />
     <Compile Include="PositiveBitCounter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
