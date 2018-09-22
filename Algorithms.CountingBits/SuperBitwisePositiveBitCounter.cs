@@ -6,13 +6,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Payvision.CodeChallenge.Algorithms.CountingBits
 {
     /// <summary>
-    ///     Based on bitwise operations
+    ///     Super optimized bitwise counter
     /// </summary>
-    public sealed class BitwisePositiveBitCounter : IPositiveBitCounter
+    public sealed class SuperBitwisePositiveBitCounter : IPositiveBitCounter
     {
         public IEnumerable<int> Count(int input)
         {
@@ -24,33 +25,28 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
             return GetCount(input);
         }
 
+        [DllImport(
+            @"..\..\..\Algorithms.CountingBits.Impl\Release\Algorithms.CountingBits.Impl.dll",
+            CallingConvention = CallingConvention.Cdecl)]
+        private static extern void Count(int input, out ArrayStruct result);
+
         private static IEnumerable<int> GetCount(int input)
         {
-            // unchecked mode do not add any performance boost
+            Count(input, out var result);
 
-            const int maxCapacity = sizeof(int) * 8 - 1;
-            var positions = new List<int>(maxCapacity);
-            var current = input;
-            var index = 0;
-
-            while (current != 0)
+            for (var i = 0; i < result.Length; i++)
             {
-                var bit = current & 1;
-                if (bit == 1)
-                {
-                    positions.Add(index);
-                }
-
-                current >>= 1;
-                index++;
+                yield return result.Data[i];
             }
+        }
 
-            yield return positions.Count;
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        public struct ArrayStruct
+        {
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
+            public int[] Data;
 
-            for (var i = 0; i < positions.Count; i++)
-            {
-                yield return positions[i];
-            }
+            public int Length;
         }
     }
 }

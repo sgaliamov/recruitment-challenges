@@ -9,7 +9,7 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits.Tests
     [TestClass]
     public class PositiveBitCounterBenchmarkTest
     {
-        private static int[] _numbers;
+        private int[] _numbers;
 
         [TestInitialize]
         public void Initialize()
@@ -25,12 +25,17 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits.Tests
         }
 
         [TestMethod]
+        public void Benchmark_SuperBitwisePositiveBitCounter()
+        {
+            Run(_numbers, new SuperBitwisePositiveBitCounter()); // just slightly faster
+        }
+
+        [TestMethod]
         public void Benchmark_BitwisePositiveBitCounter()
         {
             Run(_numbers, new BitwisePositiveBitCounter()); // 6 times faster
         }
 
-        [Ignore]
         [TestMethod]
         public void Benchmark_SimplePositiveBitCounter()
         {
