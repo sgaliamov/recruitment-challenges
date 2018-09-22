@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="PositiveBitCounterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PositiveBitCounterBenchmarkTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Algorithms.CountingBits\Algorithms.CountingBits.csproj">

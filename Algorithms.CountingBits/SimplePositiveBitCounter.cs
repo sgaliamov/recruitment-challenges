@@ -13,7 +13,7 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
     /// <summary>
     /// Straightforward implementation
     /// </summary>
-    public sealed class PositiveBitCounter : IPositiveBitCounter
+    public sealed class SimplePositiveBitCounter : IPositiveBitCounter
     {
         public IEnumerable<int> Count(int input)
         {

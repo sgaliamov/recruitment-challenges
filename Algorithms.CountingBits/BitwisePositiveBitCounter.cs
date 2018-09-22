@@ -39,7 +39,7 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
                     positions.Add(counter);
                 }
 
-                current = current >> 1;
+                current >>= 1;
                 counter++;
             }
 
