@@ -10,9 +10,9 @@ using System.Collections.Generic;
 namespace Payvision.CodeChallenge.Algorithms.CountingBits
 {
     /// <summary>
-    /// Based on bitwise operations
+    ///     Optimized bitwise counter
     /// </summary>
-    public sealed class BitwisePositiveBitCounter : IPositiveBitCounter
+    public sealed class OptimizedBitwisePositiveBitCounter : IPositiveBitCounter
     {
         public IEnumerable<int> Count(int input)
         {
@@ -26,30 +26,29 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
 
         private static IEnumerable<int> GetCount(int input)
         {
-            // unchecked mode do not add any boost
-
             const int maxCapacity = sizeof(int) * 8 - 1;
-            var positions = new List<int>(maxCapacity);
-            var current = input;
-            var index = 0;
+            var positions = new Stack<int>(maxCapacity);
 
-            while (current != 0)
+            var index = 1;
+            var marker = 0b01000000_00000000_00000000_00000000;
+
+            while (marker != 0)
             {
-                var bit = current & 1;
-                if (bit == 1)
+                var bit = input & marker;
+                if (bit > 0)
                 {
-                    positions.Add(index);
+                    positions.Push(index);
                 }
 
-                current >>= 1;
+                marker >>= 1;
                 index++;
             }
 
             yield return positions.Count;
 
-            for (var i = 0; i < positions.Count; i++)
+            while (positions.Count != 0)
             {
-                yield return positions[i];
+                yield return maxCapacity - positions.Pop();
             }
         }
     }

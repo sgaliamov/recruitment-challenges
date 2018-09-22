@@ -10,28 +10,24 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits.Tests
     public class PositiveBitCounterBenchmarkTest
     {
         [TestMethod]
-        public void BenchmarkTest()
+        public void RunBenchmark()
         {
             var random = new Random();
-            var numbers = Enumerable.Range(0, 10000000).Select(_ => random.Next(int.MaxValue)).ToArray();
+            var numbers = Enumerable.Range(0, 50000000).Select(_ => random.Next(int.MaxValue)).ToArray();
 
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
-
-            Run(numbers, new BitwisePositiveBitCounter()); // 3 times faster
-
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
-
+            Run(numbers, new BitwisePositiveBitCounter()); // 6 times faster
             Run(numbers, new SimplePositiveBitCounter());
+            Run(numbers, new OptimizedBitwisePositiveBitCounter());
         }
 
         private static void Run(
             IReadOnlyList<int> numbers,
             IPositiveBitCounter bitCounter)
         {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             for (var i = 0; i < numbers.Count; i++)

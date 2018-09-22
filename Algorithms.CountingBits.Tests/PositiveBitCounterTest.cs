@@ -14,7 +14,7 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits.Tests
     [TestClass]
     public class PositiveBitCounterTest
     {
-        private readonly IPositiveBitCounter _bitCounter = new BitwisePositiveBitCounter();
+        private readonly IPositiveBitCounter _bitCounter = new OptimizedBitwisePositiveBitCounter();
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
