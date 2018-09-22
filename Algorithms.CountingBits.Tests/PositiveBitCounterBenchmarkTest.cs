@@ -9,15 +9,32 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits.Tests
     [TestClass]
     public class PositiveBitCounterBenchmarkTest
     {
-        [TestMethod]
-        public void RunBenchmark()
+        private static int[] _numbers;
+
+        [TestInitialize]
+        public void Initialize()
         {
             var random = new Random();
-            var numbers = Enumerable.Range(0, 50000000).Select(_ => random.Next(int.MaxValue)).ToArray();
+            _numbers = Enumerable.Range(0, 50000000).Select(_ => random.Next(int.MaxValue)).ToArray();
+        }
 
-            Run(numbers, new BitwisePositiveBitCounter()); // 6 times faster
-            Run(numbers, new SimplePositiveBitCounter());
-            Run(numbers, new OptimizedBitwisePositiveBitCounter());
+        [TestMethod]
+        public void Benchmark_OptimizedBitwisePositiveBitCounter()
+        {
+            Run(_numbers, new OptimizedBitwisePositiveBitCounter());
+        }
+
+        [TestMethod]
+        public void Benchmark_BitwisePositiveBitCounter()
+        {
+            Run(_numbers, new BitwisePositiveBitCounter()); // 6 times faster
+        }
+
+        [Ignore]
+        [TestMethod]
+        public void Benchmark_SimplePositiveBitCounter()
+        {
+            Run(_numbers, new SimplePositiveBitCounter());
         }
 
         private static void Run(
@@ -30,6 +47,7 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits.Tests
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
+
             for (var i = 0; i < numbers.Count; i++)
             {
                 bitCounter.Count(numbers[i]);

@@ -19,7 +19,7 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
         {
             if (input < 0)
             {
-                throw new ArgumentException(nameof(input));
+                throw new ArgumentException("Parameter must be a positive integer.", nameof(input));
             }
 
             return Count(new BitArray(new[] { input }));

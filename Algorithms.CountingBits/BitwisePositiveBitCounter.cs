@@ -18,7 +18,7 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
         {
             if (input < 0)
             {
-                throw new ArgumentException(nameof(input));
+                throw new ArgumentException("Parameter must be a positive integer.", nameof(input));
             }
 
             return GetCount(input);
@@ -26,7 +26,7 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
 
         private static IEnumerable<int> GetCount(int input)
         {
-            // unchecked mode do not add any boost
+            // unchecked mode do not add any performance boost
 
             const int maxCapacity = sizeof(int) * 8 - 1;
             var positions = new List<int>(maxCapacity);
