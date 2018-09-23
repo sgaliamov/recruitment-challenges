@@ -81,7 +81,6 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
             using (var reader = File.OpenText(filePath))
             {
                 var logger = new StructuredLogger();
-
                 var fraudRadar = new FraudRadar(
                     logger,
                     new NormalizedOrdersProvider(
@@ -89,7 +88,12 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
                         new OrderNormalizer(new IOrderVisitor[]
                         {
                             new EmailNormalizer(),
-                            new StateNormalizer(),
+                            new StateNormalizer(new Dictionary<string, string>
+                            {
+                                { "il", "illinois" },
+                                { "ca", "california" },
+                                { "ny", "new york" }
+                            }),
                             new StreetNormalizer()
                         })),
                     new FraudsDetector(new IFraudStrategy[]
@@ -97,6 +101,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
                         new AddressFraudStrategy(),
                         new EmailFraudStrategy()
                     }));
+
 
                 return fraudRadar.Check(reader).ToList();
             }

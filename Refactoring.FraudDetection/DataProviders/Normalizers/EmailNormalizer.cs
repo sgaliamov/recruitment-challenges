@@ -40,7 +40,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders.Norma
 
             aux[0] = atIndex < 0
                 ? aux[0].Replace(".", "")
-                : aux[0].Remove(atIndex).Replace(".", ""); // a bug was here
+                : aux[0].Remove(atIndex).Replace(".", ""); // here was a bug
 
             return string.Join("@", aux[0], aux[1]);
         }
