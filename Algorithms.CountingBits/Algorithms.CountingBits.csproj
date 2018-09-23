@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SuperBitwisePositiveBitCounter.cs" />
-    <Compile Include="OptimizedBitwisePositiveBitCounter.cs" />
+    <Compile Include="AlternativeBitwisePositiveBitCounter.cs" />
     <Compile Include="IPositiveBitCounter.cs" />
     <Compile Include="BitwisePositiveBitCounter.cs" />
     <Compile Include="SimplePositiveBitCounter.cs" />

@@ -19,15 +19,15 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits.Tests
         }
 
         [TestMethod]
-        public void Benchmark_OptimizedBitwisePositiveBitCounter()
+        public void Benchmark_AlternativeBitwisePositiveBitCounter()
         {
-            Run(_numbers, new OptimizedBitwisePositiveBitCounter());
+            Run(_numbers, new AlternativeBitwisePositiveBitCounter());
         }
 
         [TestMethod]
         public void Benchmark_SuperBitwisePositiveBitCounter()
         {
-            Run(_numbers, new SuperBitwisePositiveBitCounter()); // just slightly faster
+            Run(_numbers, new SuperBitwisePositiveBitCounter()); // slightly faster than BitwisePositiveBitCounter
         }
 
         [TestMethod]

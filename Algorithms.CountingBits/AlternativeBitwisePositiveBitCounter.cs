@@ -10,9 +10,9 @@ using System.Collections.Generic;
 namespace Payvision.CodeChallenge.Algorithms.CountingBits
 {
     /// <summary>
-    ///     Optimized bitwise counter
+    ///     Alternative bitwise counter
     /// </summary>
-    public sealed class OptimizedBitwisePositiveBitCounter : IPositiveBitCounter
+    public sealed class AlternativeBitwisePositiveBitCounter : IPositiveBitCounter
     {
         private const int M1 = 0x55555555;
         private const int M2 = 0x33333333;
