@@ -7,21 +7,36 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.ValueObjects;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.Models;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.Shared;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection
 {
-    public class FraudRadar
+    // todo: check input arguments everywhere, unit test, error logger
+    public sealed class FraudRadar
     {
-        public IEnumerable<FraudResult> Check(string filePath)
-        {
-            var orders = ReadOrders(filePath);
+        private readonly IStructuredLogger _logger;
+        private readonly IOrdersProvider _ordersProvider;
 
-            Normalize(orders);
+        public FraudRadar(IStructuredLogger logger, IOrdersProvider ordersProvider)
+        {
+            _logger = logger
+                      ?? throw new ArgumentNullException(nameof(_logger));
+
+            _ordersProvider = ordersProvider
+                              ?? throw new ArgumentNullException(nameof(ordersProvider));
+        }
+
+        public IEnumerable<FraudResult> Check(StreamReader reader)
+        {
+            var orders = _ordersProvider.ReadOrders(reader);
 
             return CheckOrders(orders);
         }
 
-        private static IEnumerable<FraudResult> CheckOrders(List<Order> orders)
+        private static IEnumerable<FraudResult> CheckOrders(IReadOnlyList<Order> orders)
         {
             var fraudResults = new List<FraudResult>();
 
@@ -52,65 +67,12 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection
 
                     if (isFraudulent)
                     {
-                        fraudResults.Add(new FraudResult { IsFraudulent = true, OrderId = orders[j].OrderId });
+                        fraudResults.Add(new FraudResult(orders[j].OrderId, true));
                     }
                 }
             }
 
             return fraudResults;
-        }
-
-        private static void Normalize(List<Order> orders)
-        {
-            // NORMALIZE
-            foreach (var order in orders)
-            {
-                //Normalize email
-                var aux = order.Email.Split(new[] { '@' }, StringSplitOptions.RemoveEmptyEntries);
-
-                var atIndex = aux[0].IndexOf("+", StringComparison.Ordinal);
-
-                aux[0] = atIndex < 0 ? aux[0].Replace(".", "") : aux[0].Replace(".", "").Remove(atIndex);
-
-                order.Email = string.Join("@", aux[0], aux[1]);
-
-                //Normalize street
-                order.Street = order.Street.Replace("st.", "street").Replace("rd.", "road");
-
-                //Normalize state
-                order.State = order.State.Replace("il", "illinois")
-                    .Replace("ca", "california")
-                    .Replace("ny", "new york");
-            }
-        }
-
-        private static List<Order> ReadOrders(string filePath)
-        {
-            // READ FRAUD LINES
-            var orders = new List<Order>();
-
-            var lines = File.ReadAllLines(filePath);
-
-            foreach (var line in lines)
-            {
-                var items = line.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                var order = new Order
-                {
-                    OrderId = int.Parse(items[0]),
-                    DealId = int.Parse(items[1]),
-                    Email = items[2].ToLower(),
-                    Street = items[3].ToLower(),
-                    City = items[4].ToLower(),
-                    State = items[5].ToLower(),
-                    ZipCode = items[6],
-                    CreditCard = items[7]
-                };
-
-                orders.Add(order);
-            }
-
-            return orders;
         }
     }
 }

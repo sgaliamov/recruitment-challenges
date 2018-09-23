@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Payvision.CodeChallenge.Refactoring.FraudDetection
+namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Models
 {
     public sealed class Order
     {

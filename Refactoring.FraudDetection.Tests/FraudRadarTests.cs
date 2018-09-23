@@ -10,6 +10,9 @@ using System.IO;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.ValueObjects;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.Shared;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
 {
@@ -51,7 +54,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
                 "ThreeLines_FraudulentSecond.txt"));
 
             result.Should().NotBeNull("The result should not be null.");
-            result.Count().ShouldBeEquivalentTo(1, "The result should contains the number of lines of the file");
+            result.Count.ShouldBeEquivalentTo(1, "The result should contains the number of lines of the file");
             result.First().IsFraudulent.Should().BeTrue("The first line is not fraudulent");
             result.First().OrderId.Should().Be(2, "The first line is not fraudulent");
         }
@@ -66,14 +69,19 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
                 "FourLines_MoreThanOneFraudulent.txt"));
 
             result.Should().NotBeNull("The result should not be null.");
-            result.Count().ShouldBeEquivalentTo(2, "The result should contains the number of lines of the file");
+            result.Count.ShouldBeEquivalentTo(2, "The result should contains the number of lines of the file");
         }
 
         private static List<FraudResult> ExecuteTest(string filePath)
         {
-            var fraudRadar = new FraudRadar();
+            using (var reader = File.OpenText(filePath))
+            {
+                var fraudRadar = new FraudRadar(
+                    new DefaultStructuredLogger(),
+                    new OrdersProvider(new OrderNormalizer()));
 
-            return fraudRadar.Check(filePath).ToList();
+                return fraudRadar.Check(reader).ToList();
+            }
         }
     }
 }
