@@ -1,6 +1,6 @@
 ﻿using Payvision.CodeChallenge.Refactoring.FraudDetection.Models;
 
-namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic
+namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors
 {
     internal class AddressFraudDetector : IOrderFraudDetector
     {
