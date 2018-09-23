@@ -10,7 +10,7 @@ extern "C"
 		int counter = 1;
 		for (int index = 0; input != 0; input >>= 1, index++)
 		{
-			if ((input & 1) == 1)
+			if (input & 1)
 			{
 				output->Data[counter++] = index;
 			}
