@@ -94,7 +94,11 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
                                 { "ca", "california" },
                                 { "ny", "new york" }
                             }),
-                            new StreetNormalizer()
+                            new StreetNormalizer(new Dictionary<string, string>
+                            {
+                                { "st.", "street" },
+                                { "rd.", "road" }
+                            })
                         })),
                     new FraudsDetector(new IFraudStrategy[]
                     {

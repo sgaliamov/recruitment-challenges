@@ -89,6 +89,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DataProviders\Normalizers\StreetNormalizerTests.cs" />
     <Compile Include="DataProviders\Normalizers\StateNormalizerTests.cs" />
     <Compile Include="DataProviders\Normalizers\EmailNormalizerTests.cs" />
     <Compile Include="FraudRadarIntegrationTests.cs" />
