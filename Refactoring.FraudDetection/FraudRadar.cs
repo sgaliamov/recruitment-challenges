@@ -10,65 +10,28 @@ using System.IO;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection
 {
-    public partial class FraudRadar
+    public class FraudRadar
     {
         public IEnumerable<FraudResult> Check(string filePath)
         {
-            // READ FRAUD LINES
-            var orders = new List<Order>();
+            var orders = ReadOrders(filePath);
+
+            Normalize(orders);
+
+            return CheckOrders(orders);
+        }
+
+        private static IEnumerable<FraudResult> CheckOrders(List<Order> orders)
+        {
             var fraudResults = new List<FraudResult>();
 
-            var lines = File.ReadAllLines(filePath);
-
-            foreach (var line in lines)
-            {
-                var items = line.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                var order = new Order
-                {
-                    OrderId = int.Parse(items[0]),
-                    DealId = int.Parse(items[1]),
-                    Email = items[2].ToLower(),
-                    Street = items[3].ToLower(),
-                    City = items[4].ToLower(),
-                    State = items[5].ToLower(),
-                    ZipCode = items[6],
-                    CreditCard = items[7]
-                };
-
-                orders.Add(order);
-            }
-
-            // NORMALIZE
-            foreach (var order in orders)
-            {
-                //Normalize email
-                var aux = order.Email.Split(new[] { '@' }, StringSplitOptions.RemoveEmptyEntries);
-
-                var atIndex = aux[0].IndexOf("+", StringComparison.Ordinal);
-
-                aux[0] = atIndex < 0 ? aux[0].Replace(".", "") : aux[0].Replace(".", "").Remove(atIndex);
-
-                order.Email = string.Join("@", aux[0], aux[1]);
-
-                //Normalize street
-                order.Street = order.Street.Replace("st.", "street").Replace("rd.", "road");
-
-                //Normalize state
-                order.State = order.State.Replace("il", "illinois")
-                    .Replace("ca", "california")
-                    .Replace("ny", "new york");
-            }
-
-            // CHECK FRAUD
             for (var i = 0; i < orders.Count; i++)
             {
                 var current = orders[i];
-                var isFraudulent = false;
 
                 for (var j = i + 1; j < orders.Count; j++)
                 {
-                    isFraudulent = false;
+                    var isFraudulent = false;
 
                     if (current.DealId == orders[j].DealId
                         && current.Email == orders[j].Email
@@ -97,6 +60,57 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection
             return fraudResults;
         }
 
+        private static void Normalize(List<Order> orders)
+        {
+            // NORMALIZE
+            foreach (var order in orders)
+            {
+                //Normalize email
+                var aux = order.Email.Split(new[] { '@' }, StringSplitOptions.RemoveEmptyEntries);
 
+                var atIndex = aux[0].IndexOf("+", StringComparison.Ordinal);
+
+                aux[0] = atIndex < 0 ? aux[0].Replace(".", "") : aux[0].Replace(".", "").Remove(atIndex);
+
+                order.Email = string.Join("@", aux[0], aux[1]);
+
+                //Normalize street
+                order.Street = order.Street.Replace("st.", "street").Replace("rd.", "road");
+
+                //Normalize state
+                order.State = order.State.Replace("il", "illinois")
+                    .Replace("ca", "california")
+                    .Replace("ny", "new york");
+            }
+        }
+
+        private static List<Order> ReadOrders(string filePath)
+        {
+            // READ FRAUD LINES
+            var orders = new List<Order>();
+
+            var lines = File.ReadAllLines(filePath);
+
+            foreach (var line in lines)
+            {
+                var items = line.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                var order = new Order
+                {
+                    OrderId = int.Parse(items[0]),
+                    DealId = int.Parse(items[1]),
+                    Email = items[2].ToLower(),
+                    Street = items[3].ToLower(),
+                    City = items[4].ToLower(),
+                    State = items[5].ToLower(),
+                    ZipCode = items[6],
+                    CreditCard = items[7]
+                };
+
+                orders.Add(order);
+            }
+
+            return orders;
+        }
     }
 }
