@@ -6,6 +6,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
     public sealed class OrderNormalizer : IOrderNormalizer
     {
         // todo: clone order, apply strategies, introduce constants, email normalization
+        // todo: unit test, lower strings, error handling
         public Order Normalize(Order order)
         {
             //Normalize email

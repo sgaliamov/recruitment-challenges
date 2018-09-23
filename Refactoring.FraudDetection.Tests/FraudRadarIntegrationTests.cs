@@ -78,9 +78,10 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
         {
             using (var reader = File.OpenText(filePath))
             {
+                var logger = new DefaultStructuredLogger();
                 var fraudRadar = new FraudRadar(
-                    new DefaultStructuredLogger(),
-                    new OrdersProvider(new OrderNormalizer()),
+                    logger,
+                    new OrdersProvider(logger, new OrderNormalizer()),
                     new FraudsDetector(new IFraudStrategy[]
                     {
                         new AddressFraudStrategy(),
