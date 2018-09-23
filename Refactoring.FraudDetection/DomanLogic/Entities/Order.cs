@@ -13,6 +13,11 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities
 
         public Order(Order order)
         {
+            if (order == null)
+            {
+                throw new System.ArgumentNullException(nameof(order));
+            }
+
             OrderId = order.OrderId;
             DealId = order.DealId;
             Email = order.Email;
