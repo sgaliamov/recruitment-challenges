@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Payvision.CodeChallenge.Algorithms.CountingBits
 {
     /// <summary>
-    /// Straightforward implementation
+    ///     Straightforward implementation
     /// </summary>
     public sealed class SimplePositiveBitCounter : IPositiveBitCounter
     {
@@ -30,8 +30,7 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
             var count = 0;
             for (var i = 0; i < bitArray.Length; i++)
             {
-                var bit = bitArray[i];
-                if (bit)
+                if (bitArray[i])
                 {
                     count++;
                 }
@@ -39,10 +38,9 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
 
             yield return count;
 
-            for (var i = 0; i < count; i++)
+            for (var i = 0; i < bitArray.Length; i++)
             {
-                var bit = bitArray[i];
-                if (bit)
+                if (bitArray[i])
                 {
                     yield return i;
                 }

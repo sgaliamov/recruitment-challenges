@@ -14,40 +14,66 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits.Tests
     [TestClass]
     public class PositiveBitCounterTest
     {
-        private readonly IPositiveBitCounter _bitCounter = new SuperBitwisePositiveBitCounter();
+        private readonly IPositiveBitCounter[] _bitCounters =
+        {
+            new SimplePositiveBitCounter(),
+            new SuperBitwisePositiveBitCounter(),
+            new AlternativeBitwisePositiveBitCounter(),
+            new BitwisePositiveBitCounter()
+        };
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void Count_NegativeValue_ArgumentExceptionExpected()
         {
-            _bitCounter.Count(-2);
+            foreach (var counter in _bitCounters)
+            {
+                try
+                {
+                    counter.Count(-2);
+                }
+                catch (ArgumentException)
+                {
+                    continue;
+                }
+
+                Assert.Fail("Should not get here.");
+            }
         }
 
         [TestMethod]
         public void Count_Zero_NoOccurrences()
         {
-            CollectionAssert.AreEqual(
-                new List<int> { 0 },
-                _bitCounter.Count(0).ToList(),
-                "The result is not the expected");
+            foreach (var counter in _bitCounters)
+            {
+                CollectionAssert.AreEqual(
+                    new List<int> { 0 },
+                    counter.Count(0).ToList(),
+                    "The result is not the expected");
+            }
         }
 
         [TestMethod]
         public void Count_ValidInput_OneOcurrence()
         {
-            CollectionAssert.AreEqual(
-                new List<int> { 1, 0 },
-                _bitCounter.Count(1).ToList(),
-                "The result is not the expected");
+            foreach (var counter in _bitCounters)
+            {
+                CollectionAssert.AreEqual(
+                    new List<int> { 1, 0 },
+                    counter.Count(1).ToList(),
+                    "The result is not the expected");
+            }
         }
 
         [TestMethod]
         public void Count_ValidInput_MultipleOcurrence()
         {
-            CollectionAssert.AreEqual(
-                new List<int> { 3, 0, 5, 7 },
-                _bitCounter.Count(161).ToList(),
-                "The result is not the expected");
+            foreach (var counter in _bitCounters)
+            {
+                CollectionAssert.AreEqual(
+                    new List<int> { 3, 0, 5, 7 },
+                    counter.Count(161).ToList(),
+                    "The result is not the expected");
+            }
         }
 
         [TestMethod]
@@ -60,12 +86,15 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits.Tests
                 expected.Add(i);
             }
 
-            var actual = _bitCounter.Count(int.MaxValue).ToArray();
+            foreach (var counter in _bitCounters)
+            {
+                var actual = counter.Count(int.MaxValue).ToArray();
 
-            CollectionAssert.AreEqual(
-                expected,
-                actual,
-                "The result is not the expected");
+                CollectionAssert.AreEqual(
+                    expected,
+                    actual,
+                    "The result is not the expected");
+            }
         }
     }
 }
