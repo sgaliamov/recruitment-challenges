@@ -1,19 +1,23 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders.Normalizers;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.Models;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
 {
+    /// <summary>
+    ///     Normalization decorator
+    /// </summary>
     public sealed class NormalizedOrdersProvider : IOrdersProvider
     {
-        private readonly IOrderNormalizer _normalizer;
+        private readonly IOrderVisitor _normalizer;
         private readonly IOrdersProvider _provider;
 
         public NormalizedOrdersProvider(
             IOrdersProvider provider,
-            IOrderNormalizer normalizer)
+            IOrderVisitor normalizer)
         {
             _provider = provider ?? throw new ArgumentNullException(nameof(provider));
             _normalizer = normalizer ?? throw new ArgumentNullException(nameof(normalizer));
@@ -21,7 +25,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
 
         public Order[] ReadOrders(StreamReader reader) => _provider
             .ReadOrders(reader)
-            .Select(_normalizer.Normalize)
+            .Select(_normalizer.Visit)
             .ToArray();
     }
 }

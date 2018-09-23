@@ -11,6 +11,7 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders.Normalizers;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors;
@@ -79,9 +80,17 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
             using (var reader = File.OpenText(filePath))
             {
                 var logger = new StructuredLogger();
+
                 var fraudRadar = new FraudRadar(
                     logger,
-                    new OrdersProvider(logger, new OrderNormalizer()),
+                    new NormalizedOrdersProvider(
+                        new OrdersProvider(logger),
+                        new OrderNormalizer(new IOrderVisitor[]
+                        {
+                            new EmailNormalizer(),
+                            new StateNormalizer(),
+                            new StreetNormalizer()
+                        })),
                     new FraudsDetector(new IFraudStrategy[]
                     {
                         new AddressFraudStrategy(),
