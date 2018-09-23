@@ -8,7 +8,6 @@ using Payvision.CodeChallenge.Refactoring.FraudDetection.Shared;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
 {
-    // todo: unit test, lower strings, error handling
     public sealed class OrdersProvider : IOrdersProvider
     {
         private readonly IStructuredLogger _logger;
