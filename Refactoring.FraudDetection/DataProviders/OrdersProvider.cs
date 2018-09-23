@@ -11,15 +11,9 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
     public sealed class OrdersProvider : IOrdersProvider
     {
         private readonly IStructuredLogger _logger;
-        private readonly IOrderNormalizer _normalizer;
 
-        public OrdersProvider(
-            IStructuredLogger logger,
-            IOrderNormalizer normalizer)
-        {
+        public OrdersProvider(IStructuredLogger logger) =>
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _normalizer = normalizer ?? throw new ArgumentNullException(nameof(normalizer));
-        }
 
         public Order[] ReadOrders(StreamReader reader)
         {
@@ -32,10 +26,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
                 }
             })
             {
-                return csv
-                    .GetRecords<Order>()
-                    .Select(_normalizer.Normalize)
-                    .ToArray();
+                return csv.GetRecords<Order>().ToArray();
             }
         }
 

@@ -60,10 +60,10 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
                 _detector.Setup(x => x.CheckOrders(orders)).Returns(expected);
 
                 // act
-                var results = _fraudRadar.Check(reader);
+                var results = _fraudRadar.Check(reader).ToArray();
 
                 // assert
-                results.Should().BeEquivalentTo(expected);
+                results.Should().BeEquivalentTo(expected.AsEnumerable());
             }
         }
     }

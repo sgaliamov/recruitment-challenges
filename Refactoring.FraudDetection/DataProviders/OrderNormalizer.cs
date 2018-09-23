@@ -22,7 +22,8 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
             order.Street = order.Street.Replace("st.", "street").Replace("rd.", "road");
 
             //Normalize state
-            order.State = order.State.Replace("il", "illinois")
+            order.State = order.State
+                .Replace("il", "illinois")
                 .Replace("ca", "california")
                 .Replace("ny", "new york");
 
