@@ -40,10 +40,21 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests.DataProviders
         }
 
         [TestMethod]
+        [ExpectedException(typeof(NormalizationException))]
+        public void Visit_EmailWithoutDomaim_NormalizationExceptions()
+        {
+            var order = _fixture.Build<Order>()
+                .With(x => x.Email, " sample@ ")
+                .Create();
+
+            _normalizer.Visit(order);
+        }
+
+        [TestMethod]
         public void Visit_EmailWithPlus_RemovedAfterPlus()
         {
             var order = _fixture.Build<Order>()
-                .With(x => x.Email, "sample+tag@domail.com")
+                .With(x => x.Email, " sample+tag@domail.com ")
                 .Create();
             var expected = new Order(order)
             {
