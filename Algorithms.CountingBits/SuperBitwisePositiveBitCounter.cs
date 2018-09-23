@@ -15,6 +15,8 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
     /// </summary>
     public sealed class SuperBitwisePositiveBitCounter : IPositiveBitCounter
     {
+        private static ArrayStruct _output;
+
         public IEnumerable<int> Count(int input)
         {
             if (input < 0)
@@ -32,13 +34,13 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
 
         private static IEnumerable<int> GetCount(int input)
         {
-            Count(input, out var result);
+            Count(input, out _output);
 
-            yield return result.Data[0];
+            yield return _output.Data[0];
 
-            for (var i = 1; i <= result.Data[0]; i++)
+            for (var i = 1; i <= _output.Data[0]; i++)
             {
-                yield return result.Data[i];
+                yield return _output.Data[i];
             }
         }
 

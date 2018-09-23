@@ -10,10 +10,14 @@ using System.Collections.Generic;
 namespace Payvision.CodeChallenge.Algorithms.CountingBits
 {
     /// <summary>
-    ///     Based on bitwise operations
+    ///     Based on bitwise operations.
+    ///     Not thread safe.
     /// </summary>
     public sealed class BitwisePositiveBitCounter : IPositiveBitCounter
     {
+        private const int MaxCapacity = sizeof(int) * 8 - 1;
+        private static readonly int[] Positions = new int[MaxCapacity];
+
         public IEnumerable<int> Count(int input)
         {
             if (input < 0)
@@ -27,29 +31,25 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
         private static IEnumerable<int> GetCount(int input)
         {
             // unchecked mode do not add any performance boost
-
-            const int maxCapacity = sizeof(int) * 8 - 1;
-            var positions = new List<int>(maxCapacity);
-            var current = input;
+            var counter = 0;
             var index = 0;
-
-            while (current != 0)
+            
+            while (input != 0)
             {
-                var bit = current & 1;
-                if (bit == 1)
+                if ((input & 1) == 1)
                 {
-                    positions.Add(index);
+                    Positions[counter++] = index;
                 }
 
-                current >>= 1;
+                input >>= 1;
                 index++;
             }
 
-            yield return positions.Count;
+            yield return counter;
 
-            for (var i = 0; i < positions.Count; i++)
+            for (var i = 0; i < counter; i++)
             {
-                yield return positions[i];
+                yield return Positions[i];
             }
         }
     }
