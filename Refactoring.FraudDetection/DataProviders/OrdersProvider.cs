@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using CsvHelper;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
@@ -13,7 +14,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
 
         public OrdersProvider(IOrderNormalizer normalizer) => _normalizer = normalizer;
 
-        public Order[] ReadOrders(StreamReader reader)
+        public IEnumerable<Order> ReadOrders(StreamReader reader)
         {
             using (var csv = new CsvReader(reader, true)
             {
@@ -27,7 +28,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
                     .GetRecords<Order>()
                     .Select(_normalizer.Normalize);
 
-                return records.ToArray();
+                return records;
             }
         }
     }

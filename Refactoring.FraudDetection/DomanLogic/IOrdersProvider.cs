@@ -1,10 +1,11 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.Models;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic
 {
     public interface IOrdersProvider
     {
-        Order[] ReadOrders(StreamReader stream);
+        IEnumerable<Order> ReadOrders(StreamReader stream);
     }
 }

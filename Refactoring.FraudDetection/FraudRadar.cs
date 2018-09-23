@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.ValueObjects;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.Models;
@@ -31,7 +32,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection
 
         public IEnumerable<FraudResult> Check(StreamReader reader)
         {
-            var orders = _ordersProvider.ReadOrders(reader);
+            var orders = _ordersProvider.ReadOrders(reader).ToArray();
 
             return CheckOrders(orders);
         }
@@ -42,32 +43,34 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection
 
             for (var i = 0; i < orders.Count; i++)
             {
-                var current = orders[i];
+                var source = orders[i];
 
                 for (var j = i + 1; j < orders.Count; j++)
                 {
                     var isFraudulent = false;
 
-                    if (current.DealId == orders[j].DealId
-                        && current.Email == orders[j].Email
-                        && current.CreditCard != orders[j].CreditCard)
+                    var target = orders[j];
+
+                    if (source.DealId == target.DealId
+                        && source.Email == target.Email
+                        && source.CreditCard != target.CreditCard)
                     {
                         isFraudulent = true;
                     }
 
-                    if (current.DealId == orders[j].DealId
-                        && current.State == orders[j].State
-                        && current.ZipCode == orders[j].ZipCode
-                        && current.Street == orders[j].Street
-                        && current.City == orders[j].City
-                        && current.CreditCard != orders[j].CreditCard)
+                    if (source.DealId == target.DealId
+                        && source.State == target.State
+                        && source.ZipCode == target.ZipCode
+                        && source.Street == target.Street
+                        && source.City == target.City
+                        && source.CreditCard != target.CreditCard)
                     {
                         isFraudulent = true;
                     }
 
                     if (isFraudulent)
                     {
-                        fraudResults.Add(new FraudResult(orders[j].OrderId, true));
+                        fraudResults.Add(new FraudResult(target.OrderId, true));
                     }
                 }
             }
