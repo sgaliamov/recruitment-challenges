@@ -11,13 +11,15 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.ValueObjects;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.Shared;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
 {
     [TestClass]
-    public class FraudRadarTests
+    public class FraudRadarIntegrationTests
     {
         [TestMethod]
         [DeploymentItem("./Files/OneLineFile.txt", "Files")]
@@ -26,7 +28,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
             var result = ExecuteTest(Path.Combine(Environment.CurrentDirectory, "Files", "OneLineFile.txt"));
 
             result.Should().NotBeNull("The result should not be null.");
-            result.Count().Should().Be(0, "The result should not contains fraudulent lines");
+            result.Count.Should().Be(0, "The result should not contains fraudulent lines");
         }
 
         [TestMethod]
@@ -39,7 +41,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
                 "TwoLines_FraudulentSecond.txt"));
 
             result.Should().NotBeNull("The result should not be null.");
-            result.Count().Should().Be(1, "The result should contains the number of lines of the file");
+            result.Count.Should().Be(1, "The result should contains the number of lines of the file");
             result.First().IsFraudulent.Should().BeTrue("The first line is not fraudulent");
             result.First().OrderId.Should().Be(2, "The first line is not fraudulent");
         }
@@ -78,7 +80,12 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
             {
                 var fraudRadar = new FraudRadar(
                     new DefaultStructuredLogger(),
-                    new OrdersProvider(new OrderNormalizer()));
+                    new OrdersProvider(new OrderNormalizer()),
+                    new FraudsDetector(new IFraudStrategy[]
+                    {
+                        new AddressFraudStrategy(),
+                        new EmailFraudStrategy()
+                    }));
 
                 return fraudRadar.Check(reader).ToList();
             }

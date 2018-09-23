@@ -2,11 +2,11 @@
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors
 {
-    internal class EmailFraudDetector : IOrderFraudDetector
+    public sealed class EmailFraudStrategy : IFraudStrategy
     {
-        public bool IsFraudulent(Order source, Order target) =>
-            source.DealId == target.DealId
-            && source.Email == target.Email
-            && source.CreditCard != target.CreditCard;
+        public bool IsFraudulent(Order sample, Order target) =>
+            sample.DealId == target.DealId
+            && sample.Email == target.Email
+            && sample.CreditCard != target.CreditCard;
     }
 }

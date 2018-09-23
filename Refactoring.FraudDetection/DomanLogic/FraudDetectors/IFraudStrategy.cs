@@ -2,8 +2,9 @@
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic
 {
-    public interface IOrderFraudDetector
+    // todo: unit tests
+    public interface IFraudStrategy
     {
-        bool IsFraudulent(Order source, Order target);
+        bool IsFraudulent(Order sample, Order target);
     }
 }
