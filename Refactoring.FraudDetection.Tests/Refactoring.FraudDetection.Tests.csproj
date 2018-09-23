@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="FraudRadarIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FraudRadarTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Files\FourLines_MoreThanOneFraudulent.txt">
@@ -113,6 +114,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>

@@ -33,6 +33,11 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection
 
         public IEnumerable<FraudResult> Check(StreamReader reader)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
             var orders = _ordersProvider.ReadOrders(reader);
 
             // ReSharper disable once CoVariantArrayConversion
