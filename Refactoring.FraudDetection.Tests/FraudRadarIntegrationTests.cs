@@ -98,7 +98,10 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
                             {
                                 { "st.", "street" },
                                 { "rd.", "road" }
-                            })
+                            }),
+                            new Trimmer(order => order.City, (order, value) => order.City = value),
+                            new Trimmer(order => order.ZipCode, (order, value) => order.ZipCode = value),
+                            new Trimmer(order => order.CreditCard, (order, value) => order.CreditCard = value)
                         })),
                     new FraudsDetector(new IFraudStrategy[]
                     {
