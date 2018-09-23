@@ -8,13 +8,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.ValueObjects;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.Shared;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection
 {
-    // todo: check input arguments everywhere, unit test, error logger
     public sealed class FraudRadar
     {
         private readonly IFraudsDetector _detector;
