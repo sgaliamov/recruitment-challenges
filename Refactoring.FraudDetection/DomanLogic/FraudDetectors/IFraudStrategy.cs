@@ -1,6 +1,6 @@
-﻿using Payvision.CodeChallenge.Refactoring.FraudDetection.Models;
+﻿using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
 
-namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic
+namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors
 {
     public interface IFraudStrategy
     {

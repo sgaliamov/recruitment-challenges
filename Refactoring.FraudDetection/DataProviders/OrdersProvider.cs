@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.Models;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.Shared;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders

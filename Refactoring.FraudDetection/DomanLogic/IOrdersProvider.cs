@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.Models;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic
 {

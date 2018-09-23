@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.Models;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors
 {
