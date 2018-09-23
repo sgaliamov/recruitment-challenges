@@ -17,6 +17,11 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
 
         public Order[] ReadOrders(StreamReader reader)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
             using (var csv = new CsvReader(reader, true)
             {
                 Configuration =
@@ -34,7 +39,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
         {
             _logger.Error("Bad data found: {Record}", context.RawRecord);
 
-            throw new InvalidOperationException($"Bad data found: {context.RawRecord}");
+            throw new InvalidDataException($"Bad data found: {context.RawRecord}");
         }
     }
 }

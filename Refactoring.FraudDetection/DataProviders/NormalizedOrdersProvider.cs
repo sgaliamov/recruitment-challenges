@@ -23,9 +23,17 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
             _normalizer = normalizer ?? throw new ArgumentNullException(nameof(normalizer));
         }
 
-        public Order[] ReadOrders(StreamReader reader) => _provider
-            .ReadOrders(reader)
-            .Select(_normalizer.Visit)
-            .ToArray();
+        public Order[] ReadOrders(StreamReader reader)
+        {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
+            return _provider
+                .ReadOrders(reader)
+                .Select(_normalizer.Visit)
+                .ToArray();
+        }
     }
 }

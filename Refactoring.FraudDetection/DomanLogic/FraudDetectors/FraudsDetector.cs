@@ -15,6 +15,11 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDet
 
         public IEnumerable<FraudResult> CheckOrders(IReadOnlyList<Order> orders)
         {
+            if (orders == null)
+            {
+                throw new ArgumentNullException(nameof(orders));
+            }
+
             var fraudResults = new List<FraudResult>();
 
             for (var i = 0; i < orders.Count - 1; i++)
