@@ -34,7 +34,9 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
         {
             Count(input, out var result);
 
-            for (var i = 0; i < result.Length; i++)
+            yield return result.Data[0];
+
+            for (var i = 1; i <= result.Data[0]; i++)
             {
                 yield return result.Data[i];
             }
@@ -45,8 +47,6 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
         {
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 32)]
             public int[] Data;
-
-            public int Length;
         }
     }
 }
