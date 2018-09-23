@@ -1,6 +1,6 @@
 ﻿using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
 
-namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors
+namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors.Strategies
 {
     public sealed class AddressFraudStrategy : IFraudStrategy
     {

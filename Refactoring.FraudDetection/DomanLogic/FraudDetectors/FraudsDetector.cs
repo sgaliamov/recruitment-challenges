@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors.Strategies;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors
 {

@@ -15,6 +15,7 @@ using Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders.Normalize
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors.Strategies;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.Shared;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
