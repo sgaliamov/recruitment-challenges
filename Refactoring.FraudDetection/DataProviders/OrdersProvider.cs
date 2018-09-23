@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CsvHelper;
@@ -23,7 +22,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
             _normalizer = normalizer ?? throw new ArgumentNullException(nameof(normalizer));
         }
 
-        public IEnumerable<Order> ReadOrders(StreamReader reader)
+        public Order[] ReadOrders(StreamReader reader)
         {
             using (var csv = new CsvReader(reader, true)
             {

@@ -78,7 +78,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
         {
             using (var reader = File.OpenText(filePath))
             {
-                var logger = new DefaultStructuredLogger();
+                var logger = new StructuredLogger();
                 var fraudRadar = new FraudRadar(
                     logger,
                     new OrdersProvider(logger, new OrderNormalizer()),

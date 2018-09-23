@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.ValueObjects;
@@ -34,12 +33,12 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection
 
         public IEnumerable<FraudResult> Check(StreamReader reader)
         {
-            var orders = _ordersProvider.ReadOrders(reader).ToArray();
+            var orders = _ordersProvider.ReadOrders(reader);
 
             // ReSharper disable once CoVariantArrayConversion
             _logger.Debug("Read orders: {Orders}", orders);
 
-            var fraudResults = _detector.CheckOrders(orders).ToArray();
+            var fraudResults = _detector.CheckOrders(orders);
 
             _logger.Debug("Frauds: {Frauds}", fraudResults);
 

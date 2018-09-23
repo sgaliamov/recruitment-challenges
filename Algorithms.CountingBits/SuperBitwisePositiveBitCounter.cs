@@ -12,6 +12,7 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
 {
     /// <summary>
     ///     Super optimized bitwise counter
+    ///     Not thread safe.
     /// </summary>
     public sealed class SuperBitwisePositiveBitCounter : IPositiveBitCounter
     {
