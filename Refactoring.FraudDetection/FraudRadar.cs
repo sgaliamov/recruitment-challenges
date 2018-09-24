@@ -7,9 +7,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomainLogic;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomainLogic.Entities;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomainLogic.FraudDetectors;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.Shared;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection

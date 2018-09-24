@@ -30,7 +30,6 @@ namespace Payvision.CodeChallenge.Algorithms.CountingBits
 
         private static IEnumerable<int> GetCount(int input)
         {
-            // unchecked mode do not add any performance boost
             var counter = 0;
             var index = 0;
             

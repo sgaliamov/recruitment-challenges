@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors.Strategies;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomainLogic.Entities;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomainLogic.FraudDetectors.Strategies;
 
-namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors
+namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomainLogic.FraudDetectors
 {
     public sealed class FraudsDetector : IFraudsDetector
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomainLogic;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomainLogic.Entities;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders.Normalizers
 {

@@ -4,7 +4,7 @@ using AutoFixture;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders.Normalizers;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomainLogic.Entities;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests.DataProviders.Normalizers
 {

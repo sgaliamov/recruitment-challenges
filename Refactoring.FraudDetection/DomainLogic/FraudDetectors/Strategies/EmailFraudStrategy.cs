@@ -1,7 +1,7 @@
 ﻿using System;
-using Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.Entities;
+using Payvision.CodeChallenge.Refactoring.FraudDetection.DomainLogic.Entities;
 
-namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomanLogic.FraudDetectors.Strategies
+namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DomainLogic.FraudDetectors.Strategies
 {
     public sealed class EmailFraudStrategy : IFraudStrategy
     {
