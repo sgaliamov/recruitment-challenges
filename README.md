@@ -23,11 +23,11 @@ All code were moved from *FraudRadar* and putted to separate classes according *
 
 *FraudRadar* have two main dependencies now: *IOrdersProvider* and *IFraudsDetector*. *FraudsDetector* uses different strategies (**Strategy Pattern**) to detect frauds in an implicit chain (**Chain-of-responsibility Pattern**). This approach helps easy create new detectors and define them in runtime, using configuration for example.
 
-*IOrdersProvider* is implemented by two classes. *CsvOrdersProvider* fetches data from csv file, and do only this (**SRP**). In a future we can have other providers like *MsSqlOrdersProvider*. I used *CsvHelper* package because it's tested by 6 millions installations and I don't want waste time on implementation another one wheel.
+*IOrdersProvider* is implemented by two classes. *CsvOrdersProvider* fetches data from csv file, and do only this (**SRP**). In a future we could have other providers like *MsSqlOrdersProvider*. I used *CsvHelper* package because it's tested by 6 millions installations and I don't want waste time on implementation another one wheel.
 
-*NormalizedOrdersProvider* uses other *IOrdersProvider* to get data and to apply data normalization (**Composition over Inheritance**, **Decorator Pattern**, **OCP**). Normalizers are implemented using **Visitor Pattern**. This pattern is natural to use when we have a sequential data processing like in this case. In a future we may have different types of objects where we want to apply similar logic. If something really unexpected is happened during the process I throw proper exception (**Fail fast**).
+*NormalizedOrdersProvider* uses other *IOrdersProvider* to get data and applies data normalization (**Composition over Inheritance**, **Decorator Pattern**, **OCP**). Normalizers are implemented using **Visitor Pattern**. This pattern is natural to use when we have a sequential data processing like in this case. In a future we may have different types of objects where we want to apply similar logic, and visitors will help find all places where we need add new code. If something really unexpected is happened during the process I throw proper exception (**Fail fast**).
 
-During refactoring I suspected a bugs in normalizers. So I implemented tests first to check it (*EmailNormalizerTests*, *StateNormalizerTests*, *StreetNormalizerTests*). I was pure **TDD** in action and I was right!
+During refactoring I suspected a bugs in normalizers. So, I implemented tests first to check it (*EmailNormalizerTests*, *StateNormalizerTests*, *StreetNormalizerTests*). I was pure **TDD** in action and I was right!
 
 I did not use any **IoC/DI** container, did not create much unit tests to improve code coverage, did not create separate projects for layers (**YAGNI**). It a test assignment, after all ¯_(ツ)_/¯.
 
