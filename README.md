@@ -13,7 +13,7 @@ I decided to check what other guys did. For the future, to prevent cheating I su
 
 And then I decided to get the maximum. I implemented the solution using c++ and PInvoke in *SuperBitwisePositiveBitCounter*. It gave me additional 5-10% of speed. And I think, if it did not have to deal with marshaling it would performs much faster.
 
-## 2 Refactoring fraud detection
+## Refactoring fraud detection
 
 The first thing I did, I converted *Refactoring.FraudDetection* project to **.NET Core**. I believe that .NET Core is the future of .NET and prefer stick with it.
 
