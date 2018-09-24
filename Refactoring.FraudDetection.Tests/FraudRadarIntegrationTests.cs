@@ -84,7 +84,7 @@ namespace Payvision.CodeChallenge.Refactoring.FraudDetection.Tests
                 var fraudRadar = new FraudRadar(
                     logger,
                     new NormalizedOrdersProvider(
-                        new OrdersProvider(logger),
+                        new CsvOrdersProvider(logger),
                         new OrderNormalizer(new IOrderVisitor[]
                         {
                             new EmailNormalizer(),

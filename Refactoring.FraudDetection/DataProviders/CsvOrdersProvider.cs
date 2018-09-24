@@ -8,11 +8,11 @@ using Payvision.CodeChallenge.Refactoring.FraudDetection.Shared;
 
 namespace Payvision.CodeChallenge.Refactoring.FraudDetection.DataProviders
 {
-    public sealed class OrdersProvider : IOrdersProvider
+    public sealed class CsvOrdersProvider : IOrdersProvider
     {
         private readonly IStructuredLogger _logger;
 
-        public OrdersProvider(IStructuredLogger logger) =>
+        public CsvOrdersProvider(IStructuredLogger logger) =>
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
         public Order[] ReadOrders(StreamReader reader)
